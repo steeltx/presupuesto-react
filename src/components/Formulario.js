@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 import Error from './Error';
 
-const Formulario = ({ guardarGasto, guardarCrearGasto }) => {
+const Formulario = ({ guardarGasto, guardarCrearGasto, restante }) => {
 
     const [nombre, guardarNombre] = useState('');
     const [cantidad, guardarCantidad] = useState(0);
@@ -18,6 +18,13 @@ const Formulario = ({ guardarGasto, guardarCrearGasto }) => {
             guardarError(true);
             return;
         }
+
+        // Validar que el restante no quede en negativo
+        if(cantidad > restante){
+            guardarError(true);
+            return;
+        }
+
         guardarError(false);
 
         // Construir el gasto
